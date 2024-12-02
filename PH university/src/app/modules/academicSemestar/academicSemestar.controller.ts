@@ -16,6 +16,29 @@ const createAcademicSemestar: RequestHandler = catchAsync(async (req, res) => {
   })
 })
 
+const getAllSemestar: RequestHandler = catchAsync(async (req, res) => {
+  const result = await AcademicSemestarService.getAllAcademicSemestarFromDb()
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Successfully get all Semestar from database',
+    data: result,
+  })
+})
+const getSingleSemestar: RequestHandler = catchAsync(async (req, res) => {
+  const { semesterId } = req.params
+  const result =
+    await AcademicSemestarService.getSingleAcademicSemestarFromDb(semesterId)
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    data: result,
+    message: 'Semester is retrieved succesfully',
+  })
+})
+
 export const AcademicSemestarController = {
   createAcademicSemestar,
+  getAllSemestar,
+  getSingleSemestar,
 }
