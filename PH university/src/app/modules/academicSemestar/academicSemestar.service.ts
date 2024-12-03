@@ -20,8 +20,29 @@ const getSingleAcademicSemestarFromDb = async (semesterId: string) => {
   return result
 }
 
+const updateAcademicSemestarInDb = async (
+  semesterId: string,
+  payload: Partial<TAcademicSemestar>,
+) => {
+  if (
+    payload.name &&
+    payload.code &&
+    AcademicSemestarNameMapper[payload.name] !== payload.code
+  ) {
+    throw new Error('Invalid semestar Code or Name')
+  }
+
+  const result = await AcademicSemester.findByIdAndUpdate(
+    { _id: semesterId },
+    payload,
+    { new: true },
+  )
+  return result
+}
+
 export const AcademicSemestarService = {
   createAcademicSemestarIntoDb,
   getAllAcademicSemestarFromDb,
   getSingleAcademicSemestarFromDb,
+  updateAcademicSemestarInDb,
 }

@@ -7,11 +7,16 @@ const router = express.Router()
 
 router.post(
   '/create-academic-semestar',
-  validateRequest(AcademicSemestarValidation.academicValidationSchema),
+  validateRequest(AcademicSemestarValidation.academicSemestarValidationSchema),
   AcademicSemestarController.createAcademicSemestar,
 )
 
 router.get('/', AcademicSemestarController.getAllSemestar)
 router.get('/:semesterId', AcademicSemestarController.getSingleSemestar)
+router.patch(
+  '/:semesterId',
+  validateRequest(AcademicSemestarValidation.academicSemestarUpdateValidation),
+  AcademicSemestarController.updateAcademicSemestar,
+)
 
 export const AcademicSemestarRoute = router

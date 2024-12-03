@@ -33,7 +33,21 @@ const getSingleSemestar: RequestHandler = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     data: result,
-    message: 'Semester is retrieved succesfully',
+    message: 'Semester is retrieved successfully',
+  })
+})
+
+const updateAcademicSemestar: RequestHandler = catchAsync(async (req, res) => {
+  const { semesterId } = req.params
+  const result = await AcademicSemestarService.updateAcademicSemestarInDb(
+    semesterId,
+    req.body,
+  )
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    data: result,
+    message: 'Semestar updated Successfully',
   })
 })
 
@@ -41,4 +55,5 @@ export const AcademicSemestarController = {
   createAcademicSemestar,
   getAllSemestar,
   getSingleSemestar,
+  updateAcademicSemestar,
 }
