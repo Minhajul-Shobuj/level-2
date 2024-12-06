@@ -12,5 +12,6 @@ router.post(
   ),
   AcademicDepertmentController.createAcademicDepertment,
 )
+router.get('/', AcademicDepertmentController.getAllAcademicDepertment)
 
 export const AcademicDepertmentRoute = router

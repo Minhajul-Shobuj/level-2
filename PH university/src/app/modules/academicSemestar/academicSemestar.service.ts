@@ -1,10 +1,12 @@
+import AppError from '../../errors/AppError'
 import { AcademicSemestarNameMapper } from './academicSemestar.constant'
 import { TAcademicSemestar } from './academicSemestar.interface'
 import { AcademicSemester } from './academicSemetar.model'
+import httpStatus from 'http-status'
 
 const createAcademicSemestarIntoDb = async (payload: TAcademicSemestar) => {
   if (AcademicSemestarNameMapper[payload.name] !== payload.code) {
-    throw new Error('Invalid Semestar Code')
+    throw new AppError(httpStatus.NOT_FOUND, 'Invalid Semestar Code')
   }
   const result = await AcademicSemester.create(payload)
   return result
@@ -29,7 +31,7 @@ const updateAcademicSemestarInDb = async (
     payload.code &&
     AcademicSemestarNameMapper[payload.name] !== payload.code
   ) {
-    throw new Error('Invalid semestar Code or Name')
+    throw new AppError(httpStatus.NOT_FOUND, 'Invalid semestar Code or Name')
   }
 
   const result = await AcademicSemester.findByIdAndUpdate(

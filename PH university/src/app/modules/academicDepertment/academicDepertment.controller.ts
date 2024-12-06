@@ -19,6 +19,21 @@ const createAcademicDepertment: RequestHandler = catchAsync(
   },
 )
 
+const getAllAcademicDepertment: RequestHandler = catchAsync(
+  async (req, res) => {
+    const result =
+      await AcademicDepertmentService.getAllAcademicDepertmentFromDb()
+
+    sendResponse(res, {
+      data: result,
+      success: true,
+      message: 'successfully geting all Academic Depertment',
+      statusCode: httpStatus.OK,
+    })
+  },
+)
+
 export const AcademicDepertmentController = {
   createAcademicDepertment,
+  getAllAcademicDepertment,
 }
