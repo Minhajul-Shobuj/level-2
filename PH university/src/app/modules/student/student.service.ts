@@ -5,8 +5,17 @@ import AppError from '../../errors/AppError'
 import httpStatus from 'http-status'
 import { UserModel } from '../users/user.model'
 
-const getAllStudentsFromDB = async () => {
-  const result = await Student.find()
+const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  let searchTerm = ''
+  if (query?.searchTerm) {
+    searchTerm = query?.searchTerm as string
+  }
+  const result = Student.find({
+    $or: ['email', 'name.firstName', 'presentAddress'].map(field => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  })
+  // const result = await Student.find()
   return result
 }
 

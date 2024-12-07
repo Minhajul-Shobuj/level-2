@@ -7,6 +7,7 @@ import { TErrorSources } from '../interface/error'
 import handleValidationError from '../errors/handleValidationError'
 import handleDuplicateError from '../errors/handleDuplicateError'
 import handleCastError from '../errors/handleCastError'
+import AppError from '../errors/AppError'
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = 500
@@ -37,6 +38,23 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode
     message = simplifiedError?.message
     errorSources = simplifiedError?.errorSources
+  } else if (err instanceof AppError) {
+    statusCode = err?.statusCode
+    message = err.message
+    errorSources = [
+      {
+        path: '',
+        message: err?.message,
+      },
+    ]
+  } else if (err instanceof Error) {
+    message = err.message
+    errorSources = [
+      {
+        path: '',
+        message: err?.message,
+      },
+    ]
   }
 
   res.status(statusCode).json({
