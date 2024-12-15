@@ -14,7 +14,7 @@ const createSemesterRegistration: RequestHandler = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration is created successfully!',
+      message: 'Semester Registration is updated successfully!',
       data: result,
     })
   },
@@ -27,6 +27,7 @@ const updateRegisteredSemetar: RequestHandler = catchAsync(async (req, res) => {
     id,
     updatedData,
   )
+  console.log('from controller', result)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -12,7 +12,9 @@ const updateRegisteredSemetarInDb = async (
   id: string,
   payload: Partial<TSemestarRegristration>,
 ) => {
-  const result = await SemestarRegistration.findByIdAndUpdate(id, payload)
+  const result = await SemestarRegistration.findByIdAndUpdate(id, payload, {
+    new: true,
+  })
   return result
 }
 

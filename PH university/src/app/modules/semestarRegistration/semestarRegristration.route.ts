@@ -11,6 +11,12 @@ router.post(
   ),
   SemestarRegristrationController.createSemesterRegistration,
 )
-router.put('/id', SemestarRegristrationController.updateRegisteredSemetar)
+router.patch(
+  '/:id',
+  validateRequest(
+    SemestarRegristrationValidation.semestarRegristrationUpdateValidationSchema,
+  ),
+  SemestarRegristrationController.updateRegisteredSemetar,
+)
 
 export const SemestarRegistrationRoute = router

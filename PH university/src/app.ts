@@ -9,6 +9,7 @@ import { AcademicFaculyRoute } from './app/modules/academicFaculty/academicFacul
 import { AcademicDepertmentRoute } from './app/modules/academicDepertment/academicDepertment.route'
 import { CourseRoute } from './app/modules/course/course.route'
 import { SemestarRegistrationRoute } from './app/modules/semestarRegistration/semestarRegristration.route'
+import { AuthRoute } from './app/modules/auth/auth.route'
 const app: Application = express()
 
 //parser
@@ -23,6 +24,7 @@ app.use('/api/v1/acdemic-faculties', AcademicFaculyRoute)
 app.use('/api/v1/acdemic-depertments', AcademicDepertmentRoute)
 app.use('/api/v1/courses', CourseRoute)
 app.use('/api/v1/semestar-registration', SemestarRegistrationRoute)
+app.use('/api/v1/auth', AuthRoute)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('PH University Server')
